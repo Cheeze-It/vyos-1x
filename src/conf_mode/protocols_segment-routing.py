@@ -45,9 +45,6 @@ def get_config(config=None):
     interfaces_removed = node_changed(conf, base + ['interface'])
     if interfaces_removed:
         sr['interface_removed'] = list(interfaces_removed)
-
-    import pprint
-    pprint.pprint(sr)
     return sr
 
 def verify(sr):
