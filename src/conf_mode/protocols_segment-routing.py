@@ -48,8 +48,8 @@ def get_config(config=None):
     
     # Check for traffic engineering database import having more than one protocol configured
     if dict_search('traffic_engineering.database_import_protocol', sr):
-        isis_configured = if dict_search('traffic_engineering.database_import_protocol.isis', sr)
-        ospfv2_configured = if dict_search('traffic_engineering.database_import_protocol.ospfv2', sr)
+        isis_configured = dict_search('traffic_engineering.database_import_protocol.isis', sr)
+        ospfv2_configured = dict_search('traffic_engineering.database_import_protocol.ospfv2', sr)
         if (isis_configured and ospfv2_configured):
             raise ConfigError('Segment routing traffic engineering database import cannot ' \
                               'have isis and ospfv2 configured at the same time!')
