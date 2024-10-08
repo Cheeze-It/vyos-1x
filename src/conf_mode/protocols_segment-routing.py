@@ -49,10 +49,11 @@ def get_config(config=None):
     if dict_search('traffic_engineering', sr):
         # Check for traffic engineering database import having more than one 
         # protocol configured concurrently
-        if 'isis' in (sr['traffic_engineering']['database_import_protocol'].keys()) \
-        and 'ospfv2' in (sr['traffic_engineering']['database_import_protocol'].keys()):
-            raise ConfigError('Segment routing traffic engineering database import cannot ' \
-                              'have isis and ospfv2 configured at the same time!')
+        if dict_search('traffic_engineering.database_import_protocol', sr):
+            if 'isis' in (sr['traffic_engineering']['database_import_protocol'].keys()) \
+            and 'ospfv2' in (sr['traffic_engineering']['database_import_protocol'].keys()):
+                raise ConfigError('Segment routing traffic engineering database import cannot ' \
+                                  'have isis and ospfv2 configured at the same time!')
 
         # Check for traffic engineering per segment list per index nai adjacency 
         # and prefix configured concurrently
