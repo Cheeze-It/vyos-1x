@@ -44,7 +44,7 @@ class TestProtocolsSegmentRouting(VyOSUnitTestSHIM.TestCase):
         # check process health and continuity
         self.assertEqual(self.daemon_pid, process_named_running(PROCESS_NAME))
 
-    def test_srv6(self):
+    def test_segment-routing_01_srv6(self):
         interfaces = Section.interfaces('ethernet', vlan=False)
         locators = {
             'foo' : { 'prefix' : '2001:a::/64' },
@@ -76,7 +76,7 @@ class TestProtocolsSegmentRouting(VyOSUnitTestSHIM.TestCase):
             self.assertIn(f'   locator {locator}', frrconfig)
             self.assertIn(f'    prefix {locator_config["prefix"]} block-len 40 node-len 24 func-bits 16', frrconfig)
 
-    def test_srv6_sysctl(self):
+    def test_segment-routing_02_srv6_sysctl(self):
         interfaces = Section.interfaces('ethernet', vlan=False)
 
         # HMAC accept
@@ -105,6 +105,8 @@ class TestProtocolsSegmentRouting(VyOSUnitTestSHIM.TestCase):
         self.cli_commit()
 
         self.assertEqual(sysctl_read(f'net.ipv6.conf.{first_if}.seg6_enabled'), '0')
+
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
